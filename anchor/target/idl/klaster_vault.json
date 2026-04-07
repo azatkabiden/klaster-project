@@ -1,0 +1,1152 @@
+{
+  "address": "23G3S9gNH4x3PPJ8sJwvLfjFhQSJ2JJukZGrR29RQiTe",
+  "metadata": {
+    "name": "klaster_vault",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "approve_vault",
+      "discriminator": [
+        134,
+        37,
+        229,
+        89,
+        220,
+        36,
+        41,
+        219
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "operator"
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "share_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "share_mint",
+          "writable": true
+        },
+        {
+          "name": "operator_share_token_account",
+          "writable": true
+        },
+        {
+          "name": "operator_position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  108,
+                  100,
+                  101,
+                  114,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              },
+              {
+                "kind": "account",
+                "path": "operator"
+              }
+            ]
+          }
+        },
+        {
+          "name": "share_token_program"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claim_yield",
+      "discriminator": [
+        49,
+        74,
+        111,
+        7,
+        186,
+        22,
+        61,
+        165
+      ],
+      "accounts": [
+        {
+          "name": "holder",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault.share_mint",
+                "account": "Vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "usdc_mint"
+        },
+        {
+          "name": "holder_position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  108,
+                  100,
+                  101,
+                  114,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              },
+              {
+                "kind": "account",
+                "path": "holder"
+              }
+            ]
+          }
+        },
+        {
+          "name": "revenue_pool_token_account",
+          "writable": true
+        },
+        {
+          "name": "holder_usdc_token_account",
+          "writable": true
+        },
+        {
+          "name": "usdc_token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "deposit_revenue",
+      "discriminator": [
+        224,
+        212,
+        82,
+        100,
+        60,
+        240,
+        220,
+        29
+      ],
+      "accounts": [
+        {
+          "name": "operator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault.share_mint",
+                "account": "Vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "usdc_mint"
+        },
+        {
+          "name": "operator_usdc_token_account",
+          "writable": true
+        },
+        {
+          "name": "revenue_pool_token_account",
+          "writable": true
+        },
+        {
+          "name": "platform_treasury_token_account",
+          "writable": true
+        },
+        {
+          "name": "usdc_token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_vault",
+      "discriminator": [
+        48,
+        191,
+        163,
+        44,
+        71,
+        129,
+        63,
+        164
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "operator"
+        },
+        {
+          "name": "vault_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "share_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "usdc_mint"
+        },
+        {
+          "name": "share_mint",
+          "writable": true
+        },
+        {
+          "name": "operator_settlement_token_account"
+        },
+        {
+          "name": "platform_treasury_token_account"
+        },
+        {
+          "name": "revenue_pool_token_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "InitializeVaultArgs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "migrate_vault",
+      "discriminator": [
+        139,
+        151,
+        25,
+        211,
+        120,
+        164,
+        24,
+        215
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "platform_treasury_token_account"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "MigrateVaultArgs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pause_vault",
+      "discriminator": [
+        250,
+        6,
+        228,
+        57,
+        6,
+        104,
+        19,
+        210
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault.share_mint",
+                "account": "Vault"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "purchase_shares",
+      "discriminator": [
+        171,
+        132,
+        3,
+        224,
+        99,
+        69,
+        214,
+        250
+      ],
+      "accounts": [
+        {
+          "name": "buyer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "share_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "share_mint",
+          "writable": true
+        },
+        {
+          "name": "usdc_mint"
+        },
+        {
+          "name": "buyer_usdc_token_account",
+          "writable": true
+        },
+        {
+          "name": "operator_settlement_token_account",
+          "writable": true
+        },
+        {
+          "name": "buyer_share_token_account",
+          "writable": true
+        },
+        {
+          "name": "buyer_position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  104,
+                  111,
+                  108,
+                  100,
+                  101,
+                  114,
+                  95,
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              },
+              {
+                "kind": "account",
+                "path": "buyer"
+              }
+            ]
+          }
+        },
+        {
+          "name": "share_token_program"
+        },
+        {
+          "name": "usdc_token_program"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "shares",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "resume_vault",
+      "discriminator": [
+        68,
+        98,
+        85,
+        13,
+        31,
+        76,
+        166,
+        50
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault.share_mint",
+                "account": "Vault"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "HolderPosition",
+      "discriminator": [
+        48,
+        115,
+        169,
+        131,
+        27,
+        29,
+        223,
+        126
+      ]
+    },
+    {
+      "name": "Vault",
+      "discriminator": [
+        211,
+        8,
+        232,
+        43,
+        2,
+        152,
+        117,
+        119
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidAdmin",
+      "msg": "The admin signer does not match the vault admin."
+    },
+    {
+      "code": 6001,
+      "name": "InvalidBuyerUsdcOwner",
+      "msg": "Buyer USDC token account owner is invalid."
+    },
+    {
+      "code": 6002,
+      "name": "InvalidDepositAmount",
+      "msg": "Deposit amount is invalid."
+    },
+    {
+      "code": 6003,
+      "name": "InvalidHolderUsdcOwner",
+      "msg": "Holder USDC token account owner is invalid."
+    },
+    {
+      "code": 6004,
+      "name": "InvalidOperator",
+      "msg": "Operator account does not match the vault operator."
+    },
+    {
+      "code": 6005,
+      "name": "InvalidOperatorSettlementAccount",
+      "msg": "Operator settlement account is invalid."
+    },
+    {
+      "code": 6006,
+      "name": "InvalidOperatorSettlementOwner",
+      "msg": "Operator settlement owner must be the operator wallet."
+    },
+    {
+      "code": 6007,
+      "name": "InvalidOperatorUsdcOwner",
+      "msg": "Operator USDC token account owner is invalid."
+    },
+    {
+      "code": 6008,
+      "name": "InvalidProofBundleHash",
+      "msg": "Proof bundle hash exceeds the configured maximum length."
+    },
+    {
+      "code": 6009,
+      "name": "InvalidMetadataUri",
+      "msg": "Public metadata URI exceeds the configured maximum length."
+    },
+    {
+      "code": 6010,
+      "name": "InvalidPlatformFeeBps",
+      "msg": "Platform fee basis points must be between 0 and 9999."
+    },
+    {
+      "code": 6011,
+      "name": "InvalidPlatformTreasuryAccount",
+      "msg": "Platform treasury account is invalid."
+    },
+    {
+      "code": 6012,
+      "name": "InvalidLegacyVaultLayout",
+      "msg": "Legacy vault data could not be decoded for migration."
+    },
+    {
+      "code": 6013,
+      "name": "InvalidPublicTranche",
+      "msg": "Public tranche supply must be positive and not exceed total shares."
+    },
+    {
+      "code": 6014,
+      "name": "InvalidRevenuePoolAccount",
+      "msg": "Revenue pool token account does not match the vault configuration."
+    },
+    {
+      "code": 6015,
+      "name": "InvalidRevenuePoolOwner",
+      "msg": "Revenue pool token account owner must be the vault authority."
+    },
+    {
+      "code": 6016,
+      "name": "InvalidShareAmount",
+      "msg": "Share amount is invalid."
+    },
+    {
+      "code": 6017,
+      "name": "InvalidShareAccountOwner",
+      "msg": "Share token account owner does not match the expected wallet."
+    },
+    {
+      "code": 6018,
+      "name": "InvalidShareMint",
+      "msg": "Share mint account is invalid."
+    },
+    {
+      "code": 6019,
+      "name": "InvalidShareMintDecimals",
+      "msg": "Vault shares must use a zero-decimal share mint."
+    },
+    {
+      "code": 6020,
+      "name": "InvalidSharePrice",
+      "msg": "Share price must be positive."
+    },
+    {
+      "code": 6021,
+      "name": "InvalidTotalShares",
+      "msg": "Total shares must be positive."
+    },
+    {
+      "code": 6022,
+      "name": "InvalidUsdcMint",
+      "msg": "USDC mint account is invalid."
+    },
+    {
+      "code": 6023,
+      "name": "InvalidUsdcAccountMint",
+      "msg": "Token account mint must match the configured USDC mint."
+    },
+    {
+      "code": 6024,
+      "name": "ClaimsDisabled",
+      "msg": "Claims are currently disabled for this vault."
+    },
+    {
+      "code": 6025,
+      "name": "DepositTooSmall",
+      "msg": "Deposit is too small for the current minted supply."
+    },
+    {
+      "code": 6026,
+      "name": "InsufficientPublicShares",
+      "msg": "Not enough public shares remain for this purchase."
+    },
+    {
+      "code": 6027,
+      "name": "MathOverflow",
+      "msg": "Math overflow detected."
+    },
+    {
+      "code": 6028,
+      "name": "NoMintedSupply",
+      "msg": "No minted supply exists yet."
+    },
+    {
+      "code": 6029,
+      "name": "NothingToClaim",
+      "msg": "Nothing is claimable for this holder."
+    },
+    {
+      "code": 6030,
+      "name": "PositionHolderMismatch",
+      "msg": "Holder position is tied to a different holder."
+    },
+    {
+      "code": 6031,
+      "name": "PositionVaultMismatch",
+      "msg": "Holder position is tied to a different vault."
+    },
+    {
+      "code": 6032,
+      "name": "RevenueIndexRegression",
+      "msg": "Revenue index cannot move backwards."
+    },
+    {
+      "code": 6033,
+      "name": "ShareMintMustStartEmpty",
+      "msg": "Share mint must start with zero supply before approval."
+    },
+    {
+      "code": 6034,
+      "name": "ShareMintNotToken2022",
+      "msg": "Vault shares must use the Token-2022 program."
+    },
+    {
+      "code": 6035,
+      "name": "ShareMintNotNonTransferable",
+      "msg": "Vault shares must use the non-transferable Token-2022 extension."
+    },
+    {
+      "code": 6036,
+      "name": "VaultAlreadyVerified",
+      "msg": "Vault is already verified."
+    },
+    {
+      "code": 6037,
+      "name": "VaultAlreadyMigrated",
+      "msg": "Vault account already uses the current layout."
+    },
+    {
+      "code": 6038,
+      "name": "InvalidVaultAccount",
+      "msg": "Vault account is invalid."
+    },
+    {
+      "code": 6039,
+      "name": "InvalidVaultAccountSize",
+      "msg": "Vault account size does not match a supported layout."
+    },
+    {
+      "code": 6040,
+      "name": "VaultNotPaused",
+      "msg": "Vault must be paused before it can be resumed."
+    },
+    {
+      "code": 6041,
+      "name": "VaultNotVerified",
+      "msg": "Vault must be verified for this action."
+    }
+  ],
+  "types": [
+    {
+      "name": "HolderPosition",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "holder",
+            "type": "pubkey"
+          },
+          {
+            "name": "shares",
+            "type": "u64"
+          },
+          {
+            "name": "pending_claims",
+            "type": "u64"
+          },
+          {
+            "name": "revenue_index_checkpoint",
+            "type": "u128"
+          },
+          {
+            "name": "total_claimed",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeVaultArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "total_shares",
+            "type": "u64"
+          },
+          {
+            "name": "public_tranche_shares",
+            "type": "u64"
+          },
+          {
+            "name": "share_price_usdc",
+            "type": "u64"
+          },
+          {
+            "name": "platform_fee_bps",
+            "type": "u16"
+          },
+          {
+            "name": "public_metadata_uri",
+            "type": "string"
+          },
+          {
+            "name": "proof_bundle_hash",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MigrateVaultArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "platform_fee_bps",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Vault",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority_bump",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "platform_fee_bps",
+            "type": "u16"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "VaultStatus"
+              }
+            }
+          },
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "operator",
+            "type": "pubkey"
+          },
+          {
+            "name": "share_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "usdc_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "operator_settlement_token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "platform_treasury_token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "revenue_pool_token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "total_shares",
+            "type": "u64"
+          },
+          {
+            "name": "public_tranche_shares",
+            "type": "u64"
+          },
+          {
+            "name": "remaining_public_shares",
+            "type": "u64"
+          },
+          {
+            "name": "minted_shares",
+            "type": "u64"
+          },
+          {
+            "name": "share_price_usdc",
+            "type": "u64"
+          },
+          {
+            "name": "revenue_index",
+            "type": "u128"
+          },
+          {
+            "name": "total_platform_fees_collected",
+            "type": "u64"
+          },
+          {
+            "name": "total_primary_sale_proceeds",
+            "type": "u64"
+          },
+          {
+            "name": "total_revenue_deposited",
+            "type": "u64"
+          },
+          {
+            "name": "total_revenue_claimed",
+            "type": "u64"
+          },
+          {
+            "name": "public_metadata_uri",
+            "type": "string"
+          },
+          {
+            "name": "proof_bundle_hash",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "PendingReview"
+          },
+          {
+            "name": "Verified"
+          },
+          {
+            "name": "Paused"
+          }
+        ]
+      }
+    }
+  ]
+}

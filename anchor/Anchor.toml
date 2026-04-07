@@ -1,0 +1,19 @@
+[toolchain]
+package_manager = "bun"
+
+[features]
+resolution = true
+skip-lint = true
+
+[programs.localnet]
+klaster_vault = "23G3S9gNH4x3PPJ8sJwvLfjFhQSJ2JJukZGrR29RQiTe"
+
+[programs.devnet]
+klaster_vault = "23G3S9gNH4x3PPJ8sJwvLfjFhQSJ2JJukZGrR29RQiTe"
+
+[provider]
+cluster = "Devnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "cargo test --manifest-path programs/klaster_vault/Cargo.toml"

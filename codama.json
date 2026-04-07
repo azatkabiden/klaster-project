@@ -1,0 +1,16 @@
+{
+  "idl": "anchor/target/idl/klaster_vault.json",
+  "scripts": {
+    "js": {
+      "from": "@codama/renderers-js",
+      "args": [
+        ".",
+        {
+          "deleteFolderBeforeRendering": true,
+          "generatedFolder": "src/programs/klaster-vault/generated",
+          "syncPackageJson": false
+        }
+      ]
+    }
+  }
+}
