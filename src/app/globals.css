@@ -189,7 +189,7 @@
 
 @layer components {
   .container-shell {
-    @apply mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12;
+    @apply mx-auto w-full max-w-[1600px] px-5 sm:px-7 lg:px-10 xl:px-12 2xl:px-14;
   }
 
   .app-shell {

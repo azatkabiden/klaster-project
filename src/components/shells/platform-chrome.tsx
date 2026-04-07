@@ -36,7 +36,7 @@ export function PlatformChrome({
 
   return (
     <div className="min-h-dvh bg-background text-foreground">
-      <div className="mx-auto flex min-h-dvh w-full max-w-[1680px] flex-col md:flex-row">
+      <div className="mx-auto flex min-h-dvh w-full max-w-[1680px] flex-col px-5 sm:px-7 lg:px-10 xl:px-12 2xl:px-14 md:flex-row">
         <aside className="w-full shrink-0 border-b border-[color:var(--sidebar-border)] bg-sidebar md:sticky md:top-0 md:min-h-dvh md:w-72 md:self-start md:border-b-0 md:border-r">
           <div className="flex flex-col gap-4 px-4 py-4 sm:px-6 md:px-5 md:py-5">
             <div>
@@ -81,7 +81,7 @@ export function PlatformChrome({
             </nav>
           </div>
         </aside>
-        <main className="min-w-0 flex-1 px-4 py-4 sm:px-6 lg:px-8 xl:px-10 xl:py-8 2xl:px-12">
+        <main className="min-w-0 flex-1 px-5 py-4 sm:px-6 lg:px-8 xl:px-10 xl:py-8 2xl:px-12">
           {children}
         </main>
       </div>
