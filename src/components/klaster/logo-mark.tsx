@@ -8,29 +8,23 @@ export function KlasterLogoMark({ className }: KlasterLogoMarkProps) {
   return (
     <svg
       aria-hidden="true"
-      className={cn("h-8 w-10 shrink-0 text-foreground", className)}
+      className={cn("size-8 shrink-0 text-foreground", className)}
       fill="none"
-      viewBox="0 0 128 128"
+      preserveAspectRatio="xMidYMid meet"
+      viewBox="0 0 276 276"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="12"
-      >
-        <path d="M58 32C63 41 67 41 72 32" />
-        <path d="M44 70C38 79 39 87 48 94" />
-        <path d="M84 70C90 79 89 87 80 94" />
-      </g>
+      <g fill="currentColor" stroke="currentColor" strokeLinecap="round">
+        <path d="M115 99L160 99" strokeWidth="11" />
+        <path d="M91 140L114 180" strokeWidth="12" />
+        <path d="M184 140L161 180" strokeWidth="12" />
 
-      <g fill="currentColor">
-        <circle cx="50" cy="28" r="13" />
-        <circle cx="78" cy="28" r="13" />
-        <circle cx="38" cy="62" r="13" />
-        <circle cx="50" cy="96" r="13" />
-        <circle cx="90" cy="62" r="13" />
-        <circle cx="78" cy="96" r="13" />
+        <circle cx="115" cy="99" r="18" />
+        <circle cx="160" cy="99" r="18" />
+        <circle cx="91" cy="140" r="18" />
+        <circle cx="114" cy="180" r="18" />
+        <circle cx="184" cy="140" r="18" />
+        <circle cx="161" cy="180" r="18" />
       </g>
     </svg>
   );

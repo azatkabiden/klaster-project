@@ -44,7 +44,7 @@ export function PlatformChrome({
                 Platform
               </p>
               <Link className="group flex items-center gap-2" href="/">
-                <KlasterLogoMark className="h-8 w-10 text-foreground" />
+                <KlasterLogoMark className="size-9 text-foreground" />
                 <span className="font-mono text-sm font-bold uppercase tracking-[0.18em] text-foreground transition-colors group-hover:text-teal">
                   KlasterAI
                 </span>

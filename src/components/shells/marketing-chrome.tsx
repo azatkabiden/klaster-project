@@ -30,7 +30,7 @@ export function MarketingChrome({ children }: MarketingChromeProps) {
         <div className="container-shell flex h-12 items-center justify-between gap-3 md:h-14 md:gap-6">
           <div className="flex items-center gap-3">
             <Link href="/" className="group flex min-w-0 items-center gap-2">
-              <KlasterLogoMark className="h-7 w-9 text-foreground" />
+              <KlasterLogoMark className="size-8 text-foreground" />
               <span className="hidden font-mono text-sm font-bold uppercase tracking-[0.18em] text-foreground transition-colors group-hover:text-teal sm:inline">
                 KlasterAI
               </span>

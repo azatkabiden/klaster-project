@@ -23,7 +23,7 @@ export function SystemStateFrame({
         <section className="w-full max-w-3xl space-y-6">
           <div className="rounded-lg border border-border bg-surface p-5 md:p-6">
             <div className="mb-4 flex items-center gap-3">
-              <KlasterLogoMark className="h-8 w-10 text-foreground" />
+              <KlasterLogoMark className="size-9 text-foreground" />
               <span className="font-mono text-sm font-bold uppercase tracking-[0.18em] text-foreground">
                 KlasterAI
               </span>
