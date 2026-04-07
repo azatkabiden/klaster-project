@@ -17,7 +17,7 @@ function HeroSection() {
   const HeroBadgeIcon = heroBadge.icon;
 
   return (
-    <section className="grid gap-8 pb-4 md:grid-cols-[minmax(0,1fr)_22rem] md:pb-6">
+    <section className="grid gap-8 pb-4 xl:grid-cols-[minmax(0,1.08fr)_minmax(24rem,40%)] xl:items-start xl:gap-12 md:pb-6">
       <div>
         <div className="mb-5 flex flex-wrap items-center gap-2">
           <Badge className="gap-2" variant="verified">
@@ -64,7 +64,7 @@ function HeroSection() {
         </div>
       </div>
 
-      <aside className="rounded-lg border border-border bg-surface p-4">
+      <aside className="rounded-lg border border-border bg-surface p-4 xl:p-5">
         <div className="mb-4 flex flex-wrap gap-2">
           {["Trust rail", "Signal tower", "Review path"].map((label) => (
             <Badge key={label} variant="secondary">
@@ -167,7 +167,7 @@ function HowItWorksSection() {
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
         {processSteps.map((step, index) => (
           <article key={step.step} className="relative">
             {index < processSteps.length - 1 ? (
@@ -197,7 +197,7 @@ function TrustSection() {
       className="border-t border-border bg-surface-2 py-8 md:py-14"
       id="trust"
     >
-      <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_20rem]">
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-teal">
             Trust and disclosure

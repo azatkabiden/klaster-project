@@ -35,28 +35,28 @@ export function PlatformChrome({
 
   return (
     <div className="min-h-dvh bg-background text-foreground">
-      <div className="mx-auto flex min-h-dvh w-full max-w-[1400px] flex-col md:flex-row">
-        <aside className="w-full border-b border-[color:var(--sidebar-border)] bg-sidebar md:sticky md:top-0 md:min-h-dvh md:w-72 md:border-b-0 md:border-r">
-          <div className="flex flex-col gap-4 p-4 md:p-5">
+      <div className="mx-auto flex min-h-dvh w-full max-w-[1680px] flex-col md:flex-row">
+        <aside className="w-full shrink-0 border-b border-[color:var(--sidebar-border)] bg-sidebar md:sticky md:top-0 md:min-h-dvh md:w-72 md:self-start md:border-b-0 md:border-r">
+          <div className="flex flex-col gap-4 px-4 py-4 sm:px-6 md:px-5 md:py-5">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+              <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                 Platform
               </p>
-              <Link className="mt-1 flex items-center gap-2" href="/">
-                <span className="flex size-8 items-center justify-center rounded-md bg-primary font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-primary-foreground">
+              <Link className="group flex items-center gap-2" href="/">
+                <span className="flex size-8 items-center justify-center rounded bg-primary font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-primary-foreground">
                   KA
                 </span>
-                <span className="font-mono text-sm font-bold uppercase tracking-[0.18em] text-foreground">
+                <span className="font-mono text-sm font-bold uppercase tracking-[0.18em] text-foreground transition-colors group-hover:text-teal">
                   KlasterAI
                 </span>
               </Link>
               <div className="mt-2 flex flex-wrap items-center gap-2">
-                <Badge variant="verified">
+                <Badge variant="secondary">
                   {formatClusterLabel(solana.cluster)}
                 </Badge>
-                <Badge variant="secondary">Wallet-supported</Badge>
+                <Badge variant="verified">Wallet-supported</Badge>
               </div>
-              <p className="mt-3 text-[11px] leading-6 text-muted-foreground">
+              <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
                 Public market and role workspaces.
               </p>
             </div>
@@ -91,7 +91,7 @@ export function PlatformChrome({
             </nav>
           </div>
         </aside>
-        <main className="min-w-0 flex-1 px-4 py-4 md:px-6 md:py-6">
+        <main className="min-w-0 flex-1 px-4 py-4 sm:px-6 lg:px-8 xl:px-10 xl:py-8 2xl:px-12">
           {children}
         </main>
       </div>

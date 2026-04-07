@@ -147,7 +147,7 @@ export function WalletAuthControl({
   return (
     <div
       className={cn(
-        "space-y-3 rounded-lg border border-border bg-surface-2 p-4 text-sm",
+        "space-y-3 rounded border border-border bg-surface-2 p-3 text-sm",
         className,
       )}
       data-testid="wallet-auth-control"
@@ -175,12 +175,12 @@ export function WalletAuthControl({
 
       {authMode === "demo" ? (
         <div className="space-y-2" data-testid="wallet-auth-demo">
-          <p className="text-sm leading-6 text-muted-foreground">
-            Seeded demo sessions stay available locally until the live session
-            runtime is configured with `SESSION_SECRET`,
-            `NEXT_PUBLIC_SUPABASE_URL`, and `SUPABASE_SERVICE_ROLE_KEY`.
+          <p className="text-[11px] leading-relaxed text-muted-foreground">
+            Seeded demo sessions active. Configure `SESSION_SECRET`,
+            `NEXT_PUBLIC_SUPABASE_URL`, and `SUPABASE_SERVICE_ROLE_KEY` to
+            enable live auth.
           </p>
-          <p className="text-xs leading-5 text-muted-foreground">
+          <p className="text-[11px] leading-relaxed text-muted-foreground">
             Wallet connection for public investment still works independently,
             but workspace auth stays in demo mode in this shell.
           </p>
@@ -265,7 +265,7 @@ export function WalletAuthControl({
           </p>
 
           {walletReady ? (
-            <div className="space-y-3 rounded-md border border-border bg-surface-3 p-3">
+            <div className="space-y-3 rounded border border-border bg-surface-3 p-3">
               <div className="space-y-1">
                 <p className="font-mono text-[11px] font-semibold text-foreground">
                   {truncateAddress(walletAddress ?? "")}
@@ -284,7 +284,7 @@ export function WalletAuthControl({
                   size="sm"
                   type="button"
                 >
-                  {isSigningIn ? "Signing in..." : "Sign in with wallet"}
+                  {isSigningIn ? "Signing in..." : "Sign in"}
                 </Button>
                 <Button
                   onClick={() => void disconnect()}

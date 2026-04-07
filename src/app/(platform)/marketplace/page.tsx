@@ -1,12 +1,12 @@
-import { ArrowRight, Filter, Search, ShieldCheck, Waves } from "lucide-react";
+import { ArrowRight, Filter, Search, Waves } from "lucide-react";
 import Link from "next/link";
+import { MetricTile, PageHeader } from "@/components/klaster/ui-primitives";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { HealthSparkline } from "@/components/vaults/health-chart";
@@ -334,69 +334,36 @@ export default async function MarketplacePage({
 
   return (
     <section className="space-y-6">
-      <header className="relative overflow-hidden rounded-lg border border-border bg-surface/90 shadow-sm">
-        <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,hsl(var(--secondary)),hsl(var(--primary)),transparent)]" />
-        <div className="grid gap-6 px-6 py-7 sm:px-8 lg:grid-cols-[minmax(0,1fr)_16rem] lg:px-10">
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="verified">Verified marketplace</Badge>
-            </div>
-            <div className="space-y-3">
-              <h1 className="max-w-4xl text-balance font-display text-[var(--text-h2)] leading-[var(--leading-heading)] tracking-[var(--tracking-heading)] text-foreground">
-                Compare public compute pools through one disciplined scan lane.
-              </h1>
-              <p className="max-w-3xl text-[length:var(--text-body-lg)] leading-[var(--leading-body)] text-muted-foreground">
-                Review approval posture, health visibility, fee-aware revenue
-                posture, and remaining supply before opening the detail view.
-              </p>
-            </div>
-          </div>
-          <div className="rounded-lg border border-border-subtle bg-surface-2/76 p-5 text-sm">
-            <div className="flex items-center gap-3 text-secondary">
-              <ShieldCheck className="size-5" />
-              <p className="text-xs font-semibold uppercase tracking-[0.18em]">
-                Data source
-              </p>
-            </div>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              {getSourcePostureCopy(data.state)}
-            </p>
-          </div>
-        </div>
-      </header>
+      <PageHeader
+        description="Review approval posture, health visibility, fee-aware revenue posture, and remaining supply before opening the detail view."
+        eyebrow="Verified marketplace"
+        source={getSourcePostureCopy(data.state)}
+        title="Compare public compute pools through one disciplined scan lane."
+      />
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {[
-          {
-            label: "Public vaults",
-            value: data.summary.totalListings.toString(),
-          },
-          {
-            label: "Capital open",
-            value: formatUsdcAmount(data.summary.capitalOpenUsdc),
-          },
-          {
-            label: "Average health",
-            value: data.summary.averageHealthScore
+        <MetricTile
+          label="Public vaults"
+          value={data.summary.totalListings.toString()}
+        />
+        <MetricTile
+          accent
+          label="Capital open"
+          value={formatUsdcAmount(data.summary.capitalOpenUsdc)}
+        />
+        <MetricTile
+          accent
+          label="Average health"
+          value={
+            data.summary.averageHealthScore
               ? formatPercent(data.summary.averageHealthScore)
-              : "Pending",
-          },
-          {
-            label: "Net revenue",
-            value: formatUsdcAmount(data.summary.investorNetRevenueUsdc),
-          },
-        ].map((item) => (
-          <Card key={item.label} className="bg-surface/88">
-            <CardHeader>
-              <CardDescription className="text-xs font-semibold uppercase tracking-[0.16em]">
-                {item.label}
-              </CardDescription>
-              <CardTitle className="text-3xl tabular-nums">
-                {item.value}
-              </CardTitle>
-            </CardHeader>
-          </Card>
-        ))}
+              : "Pending"
+          }
+        />
+        <MetricTile
+          label="Net revenue"
+          value={formatUsdcAmount(data.summary.investorNetRevenueUsdc)}
+        />
       </div>
 
       <Card className="bg-surface/90">

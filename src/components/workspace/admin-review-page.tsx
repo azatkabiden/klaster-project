@@ -5,6 +5,12 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import Link from "next/link";
+import {
+  DetailHeader,
+  ErrorCard,
+  MetricTile,
+  PageHeader,
+} from "@/components/klaster/ui-primitives";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -71,69 +77,42 @@ export function AdminReviewQueuePageView({
   if (data.state === "live_error") {
     return (
       <section className="space-y-6">
-        <Card className="bg-surface/92">
-          <CardHeader>
-            <CardTitle>Review queue is temporarily unavailable</CardTitle>
-            <CardDescription>
-              The admin queue route is implemented, but the live read failed for
-              this request.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {data.errorMessage ? (
-              <p className="text-sm leading-6 text-muted-foreground">
-                Read failure: {data.errorMessage}
-              </p>
-            ) : null}
-          </CardContent>
-        </Card>
+        <ErrorCard
+          description="The admin queue route is implemented, but the live read failed for this request."
+          detail={data.errorMessage ?? undefined}
+          title="Review queue is temporarily unavailable"
+        />
       </section>
     );
   }
 
   return (
     <section className="space-y-6">
-      <header className="relative overflow-hidden rounded-lg border border-border bg-surface/90 shadow-sm">
-        <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,hsl(var(--secondary)),hsl(var(--primary)),transparent)]" />
-        <div className="grid gap-6 px-6 py-7 sm:px-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10">
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="verified">Admin verification</Badge>
-            </div>
-            <div className="space-y-3">
-              <h1 className="max-w-4xl text-balance font-display text-[var(--text-h2)] leading-[var(--leading-heading)] tracking-[var(--tracking-heading)] text-foreground">
-                Triage the review queue before entering the case workspace.
-              </h1>
-              <p className="max-w-3xl text-[length:var(--text-body-lg)] leading-[var(--leading-body)] text-muted-foreground">
-                Queue rows stay semantic and dense so high-risk review decisions
-                remain grounded in stable scan lanes instead of floating cards.
-              </p>
-            </div>
-          </div>
-          <div className="rounded-lg border border-border-subtle bg-surface-2/76 p-5 text-sm leading-6 text-muted-foreground">
-            {getQueueSourceCopy(data.state)}
-          </div>
-        </div>
-      </header>
+      <PageHeader
+        description="Queue rows stay semantic and dense so high-risk review decisions remain grounded in stable scan lanes instead of floating cards."
+        eyebrow="Admin verification"
+        source={getQueueSourceCopy(data.state)}
+        title="Triage the review queue before entering the case workspace."
+      />
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {[
-          { label: "Pending review", value: data.summary.pendingCount },
-          { label: "Needs info", value: data.summary.needsInfoCount },
-          { label: "Paused", value: data.summary.pausedCount },
-          { label: "Reviewed", value: data.summary.reviewedCount },
-        ].map((metric) => (
-          <Card key={metric.label} className="bg-surface/92">
-            <CardHeader>
-              <CardDescription className="text-xs font-semibold uppercase tracking-[0.16em]">
-                {metric.label}
-              </CardDescription>
-              <CardTitle className="text-2xl tabular-nums">
-                {metric.value}
-              </CardTitle>
-            </CardHeader>
-          </Card>
-        ))}
+        <MetricTile
+          accent
+          label="Pending review"
+          value={data.summary.pendingCount.toString()}
+        />
+        <MetricTile
+          label="Needs info"
+          value={data.summary.needsInfoCount.toString()}
+        />
+        <MetricTile
+          label="Paused"
+          value={data.summary.pausedCount.toString()}
+        />
+        <MetricTile
+          label="Reviewed"
+          value={data.summary.reviewedCount.toString()}
+        />
       </div>
 
       <Card className="bg-surface/92">
@@ -275,32 +254,21 @@ export function AdminReviewDetailPageView({
 
   return (
     <section className="space-y-6">
-      <header className="relative overflow-hidden rounded-lg border border-border bg-surface/90 shadow-sm">
-        <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,hsl(var(--secondary)),hsl(var(--primary)),transparent)]" />
-        <div className="grid gap-6 px-6 py-7 sm:px-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:px-10">
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant={badge.variant}>{badge.label}</Badge>
-              <Badge variant="secondary">{data.review.nodeCategory}</Badge>
-            </div>
-            <div className="space-y-3">
-              <h1 className="max-w-4xl text-balance font-display text-[var(--text-h2)] leading-[var(--leading-heading)] tracking-[var(--tracking-heading)] text-foreground">
-                {data.review.nodeLabel}
-              </h1>
-              <p className="max-w-3xl text-[length:var(--text-body-lg)] leading-[var(--leading-body)] text-muted-foreground">
-                Private proof review, public listing summary, and state
-                transition controls stay visible together in one decision
-                workspace.
-              </p>
-            </div>
-          </div>
-          <div className="rounded-lg border border-border-subtle bg-surface-2/76 p-5 text-sm leading-6 text-muted-foreground">
-            {data.actionMode === "demo"
-              ? "Demo mode keeps decision controls visible without mutations."
-              : "Live review approval now runs through an explicit wallet-signed prepare and finalize path."}
-          </div>
-        </div>
-      </header>
+      <DetailHeader
+        badges={
+          <>
+            <Badge variant={badge.variant}>{badge.label}</Badge>
+            <Badge variant="secondary">{data.review.nodeCategory}</Badge>
+          </>
+        }
+        description="Private proof review, public listing summary, and state transition controls stay visible together in one decision workspace."
+        sourceText={
+          data.actionMode === "demo"
+            ? "Demo mode keeps decision controls visible without mutations."
+            : "Live review approval now runs through an explicit wallet-signed prepare and finalize path."
+        }
+        title={data.review.nodeLabel}
+      />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_18rem]">
         <div className="space-y-6">

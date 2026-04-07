@@ -6,6 +6,12 @@ import {
   ShieldAlert,
 } from "lucide-react";
 import Link from "next/link";
+import {
+  DetailHeader,
+  ErrorCard,
+  MetricTile,
+  PageHeader,
+} from "@/components/klaster/ui-primitives";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -163,84 +169,47 @@ export function OperatorWorkspacePageView({
   if (data.state === "live_error") {
     return (
       <section className="space-y-6">
-        <Card className="bg-surface/92">
-          <CardHeader>
-            <CardTitle>Operator workspace is temporarily unavailable</CardTitle>
-            <CardDescription>
-              The route structure is implemented, but the live operator read
-              failed for this request.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {data.errorMessage ? (
-              <p className="text-sm leading-6 text-muted-foreground">
-                Read failure: {data.errorMessage}
-              </p>
-            ) : null}
-          </CardContent>
-        </Card>
+        <ErrorCard
+          description="The route structure is implemented, but the live operator read failed for this request."
+          detail={data.errorMessage ?? undefined}
+          title="Operator workspace is temporarily unavailable"
+        />
       </section>
     );
   }
 
   return (
     <section className="space-y-6">
-      <header className="relative overflow-hidden rounded-lg border border-border bg-surface/90 shadow-sm">
-        <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,hsl(var(--secondary)),hsl(var(--primary)),transparent)]" />
-        <div className="grid gap-6 px-6 py-7 sm:px-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10">
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="verified">Operator workspace</Badge>
-            </div>
-            <div className="space-y-3">
-              <h1 className="max-w-4xl text-balance font-display text-[var(--text-h2)] leading-[var(--leading-heading)] tracking-[var(--tracking-heading)] text-foreground">
-                Review vault stage, blocker, and next action from one board.
-              </h1>
-              <p className="max-w-3xl text-[length:var(--text-body-lg)] leading-[var(--leading-body)] text-muted-foreground">
-                Drafts, pending reviews, verified vaults, and paused operations
-                stay in explicit lanes so the operator can move each asset
-                forward without losing status, asset origin, fee posture, or
-                campaign-progress context.
-              </p>
-            </div>
-          </div>
-          <div className="rounded-lg border border-border-subtle bg-surface-2/76 p-5 text-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Data source
-            </p>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              {getWorkspaceSourceCopy(data.state)}
-            </p>
-            <div className="mt-5">
-              <Button asChild className="w-full">
-                <Link href="/operator/vaults/new">
-                  Create vault
-                  <Plus className="size-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <PageHeader
+        action={
+          <Button asChild className="min-w-[11rem]">
+            <Link href="/operator/vaults/new">
+              Create vault
+              <Plus className="size-4" />
+            </Link>
+          </Button>
+        }
+        description="Drafts, pending reviews, verified vaults, and paused operations stay in explicit lanes so the operator can move each asset forward without losing status, asset origin, fee posture, or campaign-progress context."
+        eyebrow="Operator workspace"
+        source={getWorkspaceSourceCopy(data.state)}
+        title="Review vault stage, blocker, and next action from one board."
+      />
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {[
-          { label: "Drafts", value: data.summary.draftCount },
-          { label: "Pending review", value: data.summary.pendingReviewCount },
-          { label: "Needs info", value: data.summary.needsInfoCount },
-          { label: "Verified", value: data.summary.verifiedCount },
-        ].map((metric) => (
-          <Card key={metric.label} className="bg-surface/92">
-            <CardHeader>
-              <CardDescription className="text-xs font-semibold uppercase tracking-[0.16em]">
-                {metric.label}
-              </CardDescription>
-              <CardTitle className="text-2xl tabular-nums">
-                {metric.value}
-              </CardTitle>
-            </CardHeader>
-          </Card>
-        ))}
+        <MetricTile label="Drafts" value={data.summary.draftCount.toString()} />
+        <MetricTile
+          label="Pending review"
+          value={data.summary.pendingReviewCount.toString()}
+        />
+        <MetricTile
+          label="Needs info"
+          value={data.summary.needsInfoCount.toString()}
+        />
+        <MetricTile
+          accent
+          label="Verified"
+          value={data.summary.verifiedCount.toString()}
+        />
       </div>
 
       <div className="grid gap-6 xl:grid-cols-2">
@@ -276,31 +245,16 @@ export function OperatorDraftPageView({
 }) {
   return (
     <section className="space-y-6">
-      <header className="relative overflow-hidden rounded-lg border border-border bg-surface/90 shadow-sm">
-        <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,hsl(var(--secondary)),hsl(var(--primary)),transparent)]" />
-        <div className="grid gap-6 px-6 py-7 sm:px-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:px-10">
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="verified">Create vault</Badge>
-            </div>
-            <div className="space-y-3">
-              <h1 className="max-w-4xl text-balance font-display text-[var(--text-h2)] leading-[var(--leading-heading)] tracking-[var(--tracking-heading)] text-foreground">
-                Group public facts and proof requirements before submission.
-              </h1>
-              <p className="max-w-3xl text-[length:var(--text-body-lg)] leading-[var(--leading-body)] text-muted-foreground">
-                The form keeps asset identity, economics, and proof checklist in
-                one structured workspace so review blockers stay local to the
-                field group that needs attention.
-              </p>
-            </div>
-          </div>
-          <div className="rounded-lg border border-border-subtle bg-surface-2/76 p-5 text-sm leading-6 text-muted-foreground">
-            {data.state === "seeded_demo"
-              ? "Demo mode keeps draft and checklist structure visible."
-              : "Live draft actions are ready on the existing server boundary."}
-          </div>
-        </div>
-      </header>
+      <PageHeader
+        description="The form keeps asset identity, economics, and proof checklist in one structured workspace so review blockers stay local to the field group that needs attention."
+        eyebrow="Create vault"
+        source={
+          data.state === "seeded_demo"
+            ? "Demo mode keeps draft and checklist structure visible."
+            : "Live draft actions are ready on the existing server boundary."
+        }
+        title="Group public facts and proof requirements before submission."
+      />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
         <Card className="bg-surface/92">
@@ -458,22 +412,11 @@ export function OperatorVaultDetailPageView({
   if (data.state === "live_error") {
     return (
       <section className="space-y-6">
-        <Card className="bg-surface/92">
-          <CardHeader>
-            <CardTitle>Vault workspace is temporarily unavailable</CardTitle>
-            <CardDescription>
-              The operator detail route is implemented, but the current vault
-              could not be loaded from the live read path.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {data.errorMessage ? (
-              <p className="text-sm leading-6 text-muted-foreground">
-                Read failure: {data.errorMessage}
-              </p>
-            ) : null}
-          </CardContent>
-        </Card>
+        <ErrorCard
+          description="The operator detail route is implemented, but the current vault could not be loaded from the live read path."
+          detail={data.errorMessage ?? undefined}
+          title="Vault workspace is temporarily unavailable"
+        />
       </section>
     );
   }
@@ -498,32 +441,21 @@ export function OperatorVaultDetailPageView({
 
   return (
     <section className="space-y-6">
-      <header className="relative overflow-hidden rounded-lg border border-border bg-surface/90 shadow-sm">
-        <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,hsl(var(--secondary)),hsl(var(--primary)),transparent)]" />
-        <div className="grid gap-6 px-6 py-7 sm:px-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:px-10">
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant={badge.variant}>{badge.label}</Badge>
-              <Badge variant="secondary">{data.vault.nodeCategory}</Badge>
-            </div>
-            <div className="space-y-3">
-              <h1 className="max-w-4xl text-balance font-display text-[var(--text-h2)] leading-[var(--leading-heading)] tracking-[var(--tracking-heading)] text-foreground">
-                {data.vault.nodeLabel}
-              </h1>
-              <p className="max-w-3xl text-[length:var(--text-body-lg)] leading-[var(--leading-body)] text-muted-foreground">
-                Review notes, proof posture, and revenue operations stay on one
-                route so the operator does not lose context between submission
-                and post-approval management.
-              </p>
-            </div>
-          </div>
-          <div className="rounded-lg border border-border-subtle bg-surface-2/76 p-5 text-sm leading-6 text-muted-foreground">
-            {data.actionMode === "demo"
-              ? "Demo mode keeps deposit and upload surfaces visible."
-              : "Live revenue deposits now run through an explicit prepare-and-sign wallet rail."}
-          </div>
-        </div>
-      </header>
+      <DetailHeader
+        badges={
+          <>
+            <Badge variant={badge.variant}>{badge.label}</Badge>
+            <Badge variant="secondary">{data.vault.nodeCategory}</Badge>
+          </>
+        }
+        description="Review notes, proof posture, and revenue operations stay on one route so the operator does not lose context between submission and post-approval management."
+        sourceText={
+          data.actionMode === "demo"
+            ? "Demo mode keeps deposit and upload surfaces visible."
+            : "Live revenue deposits now run through an explicit prepare-and-sign wallet rail."
+        }
+        title={data.vault.nodeLabel}
+      />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_18rem]">
         <div className="space-y-6">

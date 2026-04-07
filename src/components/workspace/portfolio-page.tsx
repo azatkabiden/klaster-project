@@ -1,5 +1,10 @@
-import { ArrowRight, Coins, History, ShieldCheck, Wallet } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import {
+  ErrorCard,
+  MetricTile,
+  PageHeader,
+} from "@/components/klaster/ui-primitives";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,109 +48,51 @@ export function PortfolioPageView({ data }: { data: PortfolioPageData }) {
   if (data.state === "live_error") {
     return (
       <section className="space-y-6">
-        <Card className="bg-surface/92">
-          <CardHeader>
-            <CardTitle>Portfolio is temporarily unavailable</CardTitle>
-            <CardDescription>
-              The investor route is implemented, but the live portfolio read
-              failed for this request.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {data.errorMessage ? (
-              <p className="text-sm leading-6 text-muted-foreground">
-                Read failure: {data.errorMessage}
-              </p>
-            ) : null}
+        <ErrorCard
+          action={
             <Button asChild variant="secondary">
               <Link href="/portfolio">Retry portfolio read</Link>
             </Button>
-          </CardContent>
-        </Card>
+          }
+          description="The investor route is implemented, but the live portfolio read failed for this request."
+          detail={data.errorMessage ?? undefined}
+          title="Portfolio is temporarily unavailable"
+        />
       </section>
     );
   }
 
   return (
     <section className="space-y-6">
-      <header className="relative overflow-hidden rounded-lg border border-border bg-surface/90 shadow-sm">
-        <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,hsl(var(--secondary)),hsl(var(--primary)),transparent)]" />
-        <div className="grid gap-6 px-6 py-7 sm:px-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:px-10">
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="verified">Investor workspace</Badge>
-            </div>
-            <div className="space-y-3">
-              <h1 className="max-w-4xl text-balance font-display text-[var(--text-h2)] leading-[var(--leading-heading)] tracking-[var(--tracking-heading)] text-foreground">
-                Net claimable yield stays visible before vault-by-vault history.
-              </h1>
-              <p className="max-w-3xl text-[length:var(--text-body-lg)] leading-[var(--leading-body)] text-muted-foreground">
-                Review current positions, paused exposure, and indexed claimable
-                balances through one disciplined ledger. Gross revenue, platform
-                fees, and investor-distributable yield stay explicit.
-              </p>
-            </div>
-          </div>
-          <div className="rounded-lg border border-border-subtle bg-surface-2/76 p-5 text-sm">
-            <div className="flex items-center gap-3 text-secondary">
-              <ShieldCheck className="size-5" />
-              <p className="text-xs font-semibold uppercase tracking-[0.18em]">
-                Data source
-              </p>
-            </div>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              {getSourceCopy(data.state)}
-            </p>
-          </div>
-        </div>
-      </header>
+      <PageHeader
+        description="Review current positions, paused exposure, and indexed claimable balances through one disciplined ledger. Gross revenue, platform fees, and investor-distributable yield stay explicit."
+        eyebrow="Investor workspace"
+        source={getSourceCopy(data.state)}
+        title="Net claimable yield stays visible before vault-by-vault history."
+      />
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {[
-          {
-            label: "Total invested",
-            value: formatUsdcAmount(data.summary.totalInvestedUsdc),
-            icon: Wallet,
-          },
-          {
-            label: "Claimable yield",
-            value: formatUsdcAmount(data.summary.totalClaimableUsdc),
-            icon: Coins,
-          },
-          {
-            label: "Platform fees",
-            value: formatUsdcAmount(data.summary.totalPlatformFeesUsdc),
-            icon: ShieldCheck,
-          },
-          {
-            label: "Tracked vaults",
-            value: `${data.summary.vaultCount} positions`,
-            icon: History,
-          },
-          {
-            label: "Paused exposure",
-            value: formatUsdcAmount(data.summary.pausedExposureUsdc),
-            icon: ShieldCheck,
-          },
-        ].map((metric) => {
-          const Icon = metric.icon;
-
-          return (
-            <Card key={metric.label} className="bg-surface/92">
-              <CardHeader>
-                <div className="flex items-center justify-between gap-3">
-                  <CardDescription className="text-xs font-semibold uppercase tracking-[0.16em]">
-                    {metric.label}
-                  </CardDescription>
-                  <Icon className="size-4 text-secondary" />
-                </div>
-                <CardTitle className="text-2xl tabular-nums">
-                  {metric.value}
-                </CardTitle>
-              </CardHeader>
-            </Card>
-          );
-        })}
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        <MetricTile
+          label="Total invested"
+          value={formatUsdcAmount(data.summary.totalInvestedUsdc)}
+        />
+        <MetricTile
+          accent
+          label="Claimable yield"
+          value={formatUsdcAmount(data.summary.totalClaimableUsdc)}
+        />
+        <MetricTile
+          label="Platform fees"
+          value={formatUsdcAmount(data.summary.totalPlatformFeesUsdc)}
+        />
+        <MetricTile
+          label="Tracked vaults"
+          value={`${data.summary.vaultCount} positions`}
+        />
+        <MetricTile
+          label="Paused exposure"
+          value={formatUsdcAmount(data.summary.pausedExposureUsdc)}
+        />
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">

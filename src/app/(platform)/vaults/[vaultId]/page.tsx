@@ -1,11 +1,11 @@
-import {
-  BarChart3,
-  FileCheck2,
-  ShieldCheck,
-  TriangleAlert,
-} from "lucide-react";
+import { BarChart3, FileCheck2, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import {
+  DetailHeader,
+  ErrorCard,
+  MetricTile,
+} from "@/components/klaster/ui-primitives";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -73,28 +73,16 @@ export default async function VaultDetailPage({
   if (data.state === "live_error") {
     return (
       <section className="space-y-6">
-        <Card className="bg-surface/92">
-          <CardHeader>
-            <div className="flex items-center gap-3 text-warning">
-              <TriangleAlert className="size-5" />
-              <CardTitle>Vault detail is temporarily unavailable</CardTitle>
-            </div>
-            <CardDescription>
-              The live vault read path is configured, but this request could not
-              resolve the current vault state.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {data.errorMessage ? (
-              <p className="text-sm leading-6 text-muted-foreground">
-                Read failure: {data.errorMessage}
-              </p>
-            ) : null}
+        <ErrorCard
+          action={
             <Button asChild variant="secondary">
               <Link href="/marketplace">Return to marketplace</Link>
             </Button>
-          </CardContent>
-        </Card>
+          }
+          description="The live vault read path is configured, but this request could not resolve the current vault state."
+          detail={data.errorMessage ?? undefined}
+          title="Vault detail is temporarily unavailable"
+        />
       </section>
     );
   }
@@ -113,72 +101,40 @@ export default async function VaultDetailPage({
 
   return (
     <section className="space-y-6">
-      <header className="relative overflow-hidden rounded-lg border border-border bg-surface/90 shadow-sm">
-        <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,hsl(var(--secondary)),hsl(var(--primary)),transparent)]" />
-        <div className="grid gap-6 px-6 py-7 sm:px-8 lg:grid-cols-[minmax(0,1fr)_16rem] lg:px-10">
-          <div className="space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge variant={stateBadge.variant}>{stateBadge.label}</Badge>
-              <Badge variant="secondary">{originLabel}</Badge>
-              <Badge variant="secondary">{vault.nodeCategory}</Badge>
-            </div>
-            <div className="space-y-3">
-              <h1 className="max-w-4xl text-balance font-display text-[var(--text-h2)] leading-[var(--leading-heading)] tracking-[var(--tracking-heading)] text-foreground">
-                {vault.nodeLabel}
-              </h1>
-              <p className="max-w-3xl text-[length:var(--text-body-lg)] leading-[var(--leading-body)] text-muted-foreground">
-                {vault.description}
-              </p>
-            </div>
-          </div>
-          <div className="rounded-lg border border-border-subtle bg-surface-2/76 p-5 text-sm">
-            <div className="flex items-center gap-3 text-secondary">
-              <ShieldCheck className="size-5" />
-              <p className="text-xs font-semibold uppercase tracking-[0.18em]">
-                Data source
-              </p>
-            </div>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              {getSourcePostureCopy(data.state)}
-            </p>
-          </div>
-        </div>
-      </header>
+      <DetailHeader
+        badges={
+          <>
+            <Badge variant={stateBadge.variant}>{stateBadge.label}</Badge>
+            <Badge variant="secondary">{originLabel}</Badge>
+            <Badge variant="secondary">{vault.nodeCategory}</Badge>
+          </>
+        }
+        description={vault.description}
+        sourceText={getSourcePostureCopy(data.state)}
+        title={vault.nodeLabel}
+      />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="space-y-6">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {[
-              {
-                label: "Share price",
-                value: formatUsdcAmount(vault.pricePerShareUsdc),
-              },
-              {
-                label: "Public tranche",
-                value: `${vault.publicShareSupply.toLocaleString()} shares`,
-              },
-              {
-                label: "Remaining",
-                value: `${vault.remainingShares.toLocaleString()} shares`,
-              },
-              {
-                label: "Net revenue",
-                value: formatUsdcAmount(
-                  vault.feeSummary.investorNetRevenueUsdc,
-                ),
-              },
-            ].map((metric) => (
-              <Card key={metric.label} className="bg-surface/88">
-                <CardHeader>
-                  <CardDescription className="text-xs font-semibold uppercase tracking-[0.16em]">
-                    {metric.label}
-                  </CardDescription>
-                  <CardTitle className="text-2xl tabular-nums">
-                    {metric.value}
-                  </CardTitle>
-                </CardHeader>
-              </Card>
-            ))}
+            <MetricTile
+              label="Share price"
+              value={formatUsdcAmount(vault.pricePerShareUsdc)}
+            />
+            <MetricTile
+              label="Public tranche"
+              value={`${vault.publicShareSupply.toLocaleString()} shares`}
+            />
+            <MetricTile
+              accent
+              label="Remaining"
+              value={`${vault.remainingShares.toLocaleString()} shares`}
+            />
+            <MetricTile
+              accent
+              label="Net revenue"
+              value={formatUsdcAmount(vault.feeSummary.investorNetRevenueUsdc)}
+            />
           </div>
 
           <Card className="bg-surface/92">

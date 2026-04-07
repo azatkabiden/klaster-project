@@ -1,16 +1,11 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { WalletAuthControl } from "@/components/auth/wallet-auth-control";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import type { WalletAuthMode } from "@/server/auth/runtime";
-import type { AppSession } from "@/server/auth/session";
 
 type MarketingChromeProps = {
-  authMode: WalletAuthMode;
   children: ReactNode;
-  session: AppSession | null;
 };
 
 const navigation = [
@@ -27,25 +22,23 @@ const footerLinks = [
   { href: "/admin/verifications", label: "Admin" },
 ] as const;
 
-export function MarketingChrome({
-  authMode,
-  children,
-  session,
-}: MarketingChromeProps) {
+export function MarketingChrome({ children }: MarketingChromeProps) {
   return (
     <div className="min-h-dvh bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm">
-        <div className="container-shell flex h-14 items-center justify-between gap-4">
+        <div className="container-shell flex h-12 items-center justify-between gap-3 md:h-14 md:gap-6">
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="flex size-7 items-center justify-center rounded-md bg-primary font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-primary-foreground">
+            <Link href="/" className="group flex min-w-0 items-center gap-2">
+              <span className="flex size-7 items-center justify-center rounded bg-primary font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-primary-foreground">
                 KA
               </span>
-              <span className="font-mono text-sm font-bold uppercase tracking-[0.18em]">
+              <span className="hidden font-mono text-sm font-bold uppercase tracking-[0.18em] text-foreground transition-colors group-hover:text-teal sm:inline">
                 KlasterAI
               </span>
+              <Badge className="hidden sm:inline-flex" variant="secondary">
+                Devnet first
+              </Badge>
             </Link>
-            <Badge variant="secondary">Devnet first</Badge>
           </div>
           <nav
             aria-label="Primary"
@@ -63,31 +56,13 @@ export function MarketingChrome({
           </nav>
           <div className="flex items-center gap-3">
             <Button asChild size="sm" variant="secondary">
-              <Link href="/marketplace">Open marketplace</Link>
+              <Link href="/marketplace">Marketplace</Link>
             </Button>
           </div>
         </div>
       </header>
 
-      <main className="container-shell flex-1 py-6 md:py-8">
-        <div className="mb-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_22rem]">
-          <div className="rounded-lg border border-border bg-surface px-4 py-3">
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-              Public product posture
-            </p>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-              Marketing stays intentionally compact: explain proof, constraints,
-              and marketplace entry before any wallet-bound action begins.
-            </p>
-          </div>
-          <WalletAuthControl
-            authMode={authMode}
-            className="h-full"
-            session={session}
-          />
-        </div>
-        {children}
-      </main>
+      <main className="container-shell flex-1 py-6 md:py-8">{children}</main>
 
       <footer className="border-t border-border py-10">
         <div className="container-shell">
