@@ -34,7 +34,7 @@ describe("public vault read model state handling", () => {
     expect(result.vaults).toEqual([]);
   });
 
-  it("preserves live read failures instead of falling back to demo data", async () => {
+  it("falls back to seeded demo data when the live read fails", async () => {
     const result = await getAllVaultDetails({
       hasSupabaseReadRuntime: true,
       loadLiveListings: async () => {
@@ -42,10 +42,12 @@ describe("public vault read model state handling", () => {
       },
     });
 
-    expect(result.source).toBe("live");
-    expect(result.state).toBe("live_error");
+    expect(result.source).toBe("seeded");
+    expect(result.state).toBe("seeded_demo");
     expect(result.errorMessage).toContain("temporary outage");
-    expect(result.vaults).toEqual([]);
+    expect(result.vaults.some((vault) => vault.slug === "demo-vault")).toBe(
+      true,
+    );
   });
 
   it("does not expose seeded demo vault slugs when the live market is empty", async () => {

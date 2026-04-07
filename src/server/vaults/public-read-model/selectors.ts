@@ -52,9 +52,9 @@ export async function getAllVaultDetails(
 
     return {
       errorMessage,
-      source: "live" as const,
-      state: "live_error",
-      vaults: [],
+      source: "seeded" as const,
+      state: "seeded_demo" as const,
+      vaults: createSeedVaults(),
     };
   }
 }
